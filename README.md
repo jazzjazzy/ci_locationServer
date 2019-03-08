@@ -17,4 +17,4 @@ Manual start
 =============
 if you need to start server manually you will need to connect to the nodejs container shell and run server.js  
 `$> docker exec -it nodejs bash`  
-`$> node ws`  
+`$> node server`  
