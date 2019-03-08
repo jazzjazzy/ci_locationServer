@@ -1,0 +1,39 @@
+version: '3.1'
+
+services:
+
+  node:
+    container_name: nodejs
+    build: .
+    #restart: always
+    ports:
+      - 8080:8080
+      - 3000:3000
+    volumes:
+      - .:/usr/src/app
+    environment:
+      PORT: 3000
+    extra_hosts:
+      - "nodeserver:10.1.1.222"
+    depends_on:
+      - mongo
+  mongo:
+    container_name: mongodb
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - ./db:/data/db
+    command: mongod
+  mongo-express:
+    container_name: mongoExpress
+    image: mongo-express
+    restart: always
+    ports:
+      - 9081:8081
+    environment:
+      ME_CONFIG_MONGODB_USERNAME: admin
+      ME_CONFIG_MONGODB_PASSWORD: password
+    depends_on:
+      - mongo
